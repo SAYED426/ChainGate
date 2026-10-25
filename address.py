@@ -1,24 +1,24 @@
-def is_address(Address):
+HEX_CHARS = "0123456789abcdefABCDEF"
+
+def is_address(address):
     # 1. Check the input type
-    if not isinstance(Address,str):
+    if not isinstance(address,str):
         return False
 
     # 2. Check the length
-    if len(Address) != 42:
+    if len(address) != 42:
         return False
 
     # 3. Check the prefix
-    if not Address.startswith("0x"):
+    if not address.startswith("0x"):
         return False
     
     # 4. Extract the hexadecimal part
-    body = Address[2:]
-
-    hex_chars = "0123456789abcdefABCDEF"
+    body = address[2:]
 
     # 5. Validate each character
     for char in body:
-        if char not in hex_chars:
+        if char not in HEX_CHARS:
             return False
 
     # 6. Return True if all checks pass
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         ("0xZZb86991c6218b36c1d19D4a2e9Eb0cE3606eB48", False),
         (12345, False),
         ("", False),
-        ("0Xa0b8...", False),
+        ("0X" + "a" * 40, False),
     ]
 
     for address, expected in cases:
